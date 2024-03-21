@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function TimerChallenge({title, targetTime}){
     const [timerExpired, setTimerExpired] = useState(false);
     const [timerStarted, setTimerStarted] = useState(false);
-    
+
+    /**
+     * Can't use a normal variable since the function get re-exectuted because of useState, 
+     * so the variable will be re-initialized everytime the function gets executed.
+     * This is why is needed useRef
+     */
+    const timer = useRef(); 
+
     function handleStart(){
-        setTimeout(() => {
+       timer.current = setTimeout(() => {
             setTimerExpired(true);
         }, targetTime * 1000);
         
@@ -13,7 +20,7 @@ export default function TimerChallenge({title, targetTime}){
     }
 
     function handleStop(){
-
+        clearTimeout(timer.current)
     }
 
     return <section className="challenge">
@@ -21,7 +28,7 @@ export default function TimerChallenge({title, targetTime}){
         {timerExpired && <p>You lost</p>}
         <p className="challenge-time"> {targetTime} second {targetTime > 1 ? 's' : ''} </p>
         <p>
-            <button onClick={handleStart}>{ timerStarted ? 'Stop':'Start'} Challenge</button>
+            <button onClick={ timerStarted ? handleStop : handleStart}>{ timerStarted ? 'Stop':'Start'} Challenge</button>
         </p>
         <p className={ timerStarted ? 'active': undefined}>
             { timerStarted ? 'Time is running ...':' Timer inactive '}
