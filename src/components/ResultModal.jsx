@@ -1,4 +1,4 @@
-import {forwardRef} from 'react';
+import {forwardRef, useImperativeHandle, useRef} from 'react';
 
 /**
  * forwardRef will forward the ref value from TimeChallenge (parent) to ResultModal (child).
@@ -10,7 +10,23 @@ import {forwardRef} from 'react';
  */
 
 const ResultModal = forwardRef(function ResultModal({result, targetTime}, ref){
-    return <dialog ref={ref} className="result-modal">
+    const dialog = useRef();
+
+    useImperativeHandle(ref, () => ({
+        open(){
+            dialog.current.showModal();
+        }
+    }))
+    /**
+     * useImperativeHandle - hook used to make sure that the app won't break when a developer modifies the jsx 
+     * code of a component, whose functions are being used in a different component.
+     * What this hook does, it makes sure that functions will always be available by exposing them, and making them 
+     * independent from the possible changes of the jsx. 
+     * Everything will work as long as the functions are exposed and the component itself works as expected.
+     * Also the hook will always work with the forwardRef hook.
+     */
+
+    return <dialog ref={dialog} className="result-modal">
         <h2>You {result} </h2>
         <p>The target time was <strong>{targetTime}</strong> seconds. </p>
         <p>You stopped the timer with <strong> 1 seconds left</strong> </p>
