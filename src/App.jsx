@@ -1,4 +1,4 @@
-import TimerChallenge from './components/TimerChallenge.jsx';
+import TimerChallenge from './components/TimerChallenge/TimerChallenge.jsx';
 function App() {
   return (
     <>

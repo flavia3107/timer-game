@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import ResultModal from "./ResultModal";
+import ResultModal from "../ResultModal/ResultModal.jsx";
+import styleClasses from './TimerChallenge.module.css';
 
 export default function TimerChallenge({title, targetTime}){
     /**
@@ -39,13 +40,13 @@ export default function TimerChallenge({title, targetTime}){
     */}
         <ResultModal ref={dialog} targetTime={targetTime} result="lost" 
         remainingTime={timeRemaining} onReset={handleReset}/>
-        <section className="challenge">
+        <section className={styleClasses.challenge}>
             <h2>{title}</h2>
-            <p className="challenge-time"> {targetTime} second {targetTime > 1 ? 's' : ''} </p>
+            <p className={styleClasses.challenge_time}> {targetTime} second {targetTime > 1 ? 's' : ''} </p>
             <p>
                 <button onClick={ timerIsActive ? handleStop : handleStart}>{ timerIsActive ? 'Stop':'Start'} Challenge</button>
             </p>
-            <p className={ timerIsActive ? 'active': undefined}>
+            <p className={ timerIsActive ? styleClasses.active : undefined}>
                 { timerIsActive ? 'Time is running ...':' Timer inactive '}
             </p>
         </section>

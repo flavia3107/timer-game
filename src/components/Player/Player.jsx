@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useState } from "react";
+import styleClasses from './Player.module.css';
 
 export default function Player() {
   const [player, setPlayer] = useState(null);
@@ -10,7 +11,7 @@ export default function Player() {
   }
 
   return (
-    <section id="player">
+    <section className={styleClasses.plauer}>
       <h2>Welcome { player ?? 'unknown entity'}</h2>
       <p>
         <input ref={playerInputRef} type="text" />

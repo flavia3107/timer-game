@@ -1,5 +1,6 @@
 import {forwardRef, useImperativeHandle, useRef} from 'react';
 import { createPortal } from 'react-dom';
+import styleClasses from './ResultModal.module.css';
 /**
  * forwardRef will forward the ref value from TimeChallenge (parent) to ResultModal (child).
  * To use forwardRef the component function will be wrapped with it, which will return a new component
@@ -29,7 +30,7 @@ const ResultModal = forwardRef(function ResultModal({ targetTime, remainingTime,
      * Also the hook will always work with the forwardRef hook.
      */
 
-    return createPortal(<dialog ref={dialog} className="result-modal" onClose={onReset}>
+    return createPortal(<dialog ref={dialog} className={styleClasses.result_modal} onClose={onReset}>
             {userLost && <h2>You lost </h2>}
             {!userLost && <h2>Your Score: {score} </h2>}
 
